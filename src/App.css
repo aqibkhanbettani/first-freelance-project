@@ -1,0 +1,39 @@
+.table thead {
+  background-color: rgb(65, 62, 62);
+  color: white;
+}
+/* Remove underline from all sidebar links */
+.sidebar .menu a {
+  text-decoration: none !important;
+}
+
+/* Optional: keep active styles clean */
+.sidebar .menu a:focus,
+.sidebar .menu a:active {
+  text-decoration: none !important;
+  outline: none;
+}
+.custom-card {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.9);
+  transition: transform 0.2s ease-in-out;
+}
+
+.custom-card:hover {
+  transform: scale(1.02);
+}
+.menu-link,
+.submenu-link {
+  background: white;
+  color: black;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.menu-link:hover,
+.submenu-link:hover {
+  background: #f1f1f1; /* light grey hover effect */
+  color: black;
+}
+
