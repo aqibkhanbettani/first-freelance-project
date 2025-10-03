@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
 function Newsala() {
-  const [isInstallment, setIsInstallment] = useState("");
+  const [isInstallment, setIsInstallment] = useState("no"); // default "no"
+  const [numInstallments, setNumInstallments] = useState("");
 
   return (
     <div className="container mt-4">
       <h1 className="fw-bold mb-4">Add New Sale</h1>
 
       <form>
-        {/* Row 1 - Select Customer */}
+        {/* Row 1 - Select Customer + Product */}
         <div className="row mb-3">
           <div className="col-md-6">
             <select className="form-select">
@@ -63,7 +64,7 @@ function Newsala() {
           </div>
         </div>
 
-        {/* Row 4 - Payment Type */}
+        {/* Row 4 - Payment Type + Installment */}
         <div className="row mb-3">
           <div className="col-md-6">
             <select className="form-select">
@@ -79,28 +80,24 @@ function Newsala() {
               value={isInstallment}
               onChange={(e) => setIsInstallment(e.target.value)}
             >
-              <option value="">Installment (Yes/No)</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="no">Installment: No</option>
+              <option value="yes">Installment: Yes</option>
             </select>
           </div>
         </div>
 
-        {/* Row 5 - No. of Installments (conditional) */}
-        {isInstallment === "yes" && (
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="No. of Installments"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Row 6 - Date */}
+        {/* Row 5 - No. of Installments + Date (same row) */}
         <div className="row mb-3">
+          <div className="col-md-6">
+            <input
+              type="number"
+              className="form-control"
+              placeholder="No. of Installments"
+              value={numInstallments}
+              onChange={(e) => setNumInstallments(e.target.value)}
+              disabled={isInstallment !== "yes"} // 🔹 disable if not "yes"
+            />
+          </div>
           <div className="col-md-6">
             <input type="date" className="form-control" />
           </div>

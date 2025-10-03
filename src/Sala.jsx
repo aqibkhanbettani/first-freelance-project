@@ -200,13 +200,14 @@ function Sala() {
                   <td>{sale.status}</td>
                   <td>{sale.createdAt}</td>
                   <td className="text-center">
-                    <FaPenToSquare
-                      className="me-3 text-primary"
-                      size={20}
-                      style={{ cursor: "pointer" }}
-                      title="Edit"
-                      onClick={() => alert(`Edit sale ${sale.id}`)}
-                    />
+                    {/* ✅ Edit Button Links to Detail Page */}
+                    <Link to={`/sala/${sale.id}`} title="Edit">
+                      <FaPenToSquare
+                        className="me-3 text-primary"
+                        size={20}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </Link>
                     <FaTrash
                       className="text-danger"
                       size={20}

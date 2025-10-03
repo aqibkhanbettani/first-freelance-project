@@ -35,7 +35,7 @@ function Login({ setIsAuthenticated }) {
             />
           </div>
           <button type="submit" className="btn btn-dark w-100">
-            Logi
+            Login
           </button>
         </form>
       </div>
