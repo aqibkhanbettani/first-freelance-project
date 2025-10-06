@@ -71,7 +71,7 @@ function Dashboard() {
     setCustomers(generateRandomCustomers());
   }, []);
 
-  // Show only 6 rows
+  // Show only 4 rows
   const displayedCustomers = customers.slice(0, 4);
 
   // Bar Chart Data (Income vs Expenses)
@@ -100,7 +100,13 @@ function Dashboard() {
   };
 
   return (
-    <div className="container-fluid mt-4" style={{  background: "linear-gradient(to bottom right, #E9EEF8 0%, rgba(255, 255, 255, 0.9) 100%)",}}>
+    <div
+      className="container-fluid mt-4"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #E9EEF8 0%, rgba(255, 255, 255, 0.9) 100%)",
+      }}
+    >
       {/* Header */}
       <div className="row align-items-center mb-4">
         <div className="col-10">
@@ -122,7 +128,14 @@ function Dashboard() {
           { title: "Expenses", value: expenses },
         ].map((card) => (
           <div className="col-md-3" key={card.title}>
-            <div className="card text-center p-2" style={{ minHeight: "100px" }}>
+            <div
+              className="card text-center p-2"
+              style={{
+                minHeight: "100px",
+                backgroundColor: "#fff",
+                boxShadow: "none",
+              }}
+            >
               <p className="text-black mb-1">{card.title}</p>
               <p className="fs-5 text-black">
                 PKR {card.value.toLocaleString()}
@@ -135,22 +148,34 @@ function Dashboard() {
       {/* Statistics Graphs */}
       <div className="row g-4 mb-4">
         <div className="col-md-6">
-          <div className="card p-3">
+          <div
+            className="card p-3"
+            style={{ backgroundColor: "#fff", boxShadow: "none" }}
+          >
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
         <div className="col-md-6">
-          <div className="card p-3">
+          <div
+            className="card p-3"
+            style={{ backgroundColor: "#fff", boxShadow: "none" }}
+          >
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
       </div>
 
       {/* Customer Table */}
-      <div className="card p-3 mt-4">
+      <div
+        className="card p-3 mt-4"
+        style={{ backgroundColor: "#fff", boxShadow: "none" }}
+      >
         <h5 className="mb-3">Recent Customers</h5>
         <div className="table-responsive">
-          <table className="table table-bordered table-striped" style={{borderRadius:"5px"}}>
+          <table
+            className="table table-bordered table-striped"
+            style={{ borderRadius: "5px" }}
+          >
             <thead className="table-dark">
               <tr>
                 <th>S.No</th>

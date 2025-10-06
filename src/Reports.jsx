@@ -100,7 +100,10 @@ export default function Reports() {
         <div className="row g-3">
           {cards.map((card, index) => (
             <div className="col-md-3 col-sm-6" key={index}>
-              <div className="custom-card p-3 rounded">
+              <div
+                className="custom-card p-3 rounded"
+                style={{ backgroundColor: "#fff", boxShadow: "none" }}
+              >
                 <h6 className="fw-bold">{card.title}</h6>
                 <p className="mb-0">{card.value}</p>
               </div>
@@ -112,12 +115,18 @@ export default function Reports() {
       {/* Statistics Graphs */}
       <div className="row g-4 mt-4">
         <div className="col-md-6">
-          <div className="card p-3">
+          <div
+            className="card p-3"
+            style={{ backgroundColor: "#fff", boxShadow: "none" }}
+          >
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
         <div className="col-md-6">
-          <div className="card p-3">
+          <div
+            className="card p-3"
+            style={{ backgroundColor: "#fff", boxShadow: "none" }}
+          >
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
