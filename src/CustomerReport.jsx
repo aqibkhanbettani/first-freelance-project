@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import navigation hook
 
 export default function CustomerReport() {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null); // For modal
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
   // Generate random date in the last 12 months
   const getRandomDate = () => {
@@ -41,7 +42,6 @@ export default function CustomerReport() {
       const totalInstallments = Math.floor(Math.random() * 24) + 1;
       const monthlyPayment = Math.floor(totalLoan / totalInstallments);
 
-      // Generate installment details
       const installments = Array.from({ length: totalInstallments }, (_, i) => {
         const dueDate = new Date();
         dueDate.setMonth(dueDate.getMonth() + i);
@@ -51,7 +51,10 @@ export default function CustomerReport() {
             year: "numeric",
           }),
           payment: monthlyPayment,
-          status: i < Math.floor(Math.random() * totalInstallments) ? "Paid" : "Pending",
+          status:
+            i < Math.floor(Math.random() * totalInstallments)
+              ? "Paid"
+              : "Pending",
         };
       });
 
@@ -94,7 +97,7 @@ export default function CustomerReport() {
     <div className="container-fluid mt-4">
       <h2 className="fw-bold mb-3">Customer Report</h2>
 
-      {/* Search Input */}
+      {/* 🔍 Search Input */}
       <div className="mb-3">
         <input
           type="text"
@@ -105,7 +108,7 @@ export default function CustomerReport() {
         />
       </div>
 
-      {/* Cards Section */}
+      {/* 🧾 Cards Section */}
       {searchQuery && filteredProducts.length > 0 && (
         <div className="row mb-4">
           {filteredProducts.slice(0, 3).map((product) => (
@@ -133,7 +136,7 @@ export default function CustomerReport() {
                     <span
                       className="text-primary"
                       style={{ cursor: "pointer" }}
-                      onClick={() => setSelectedProduct(product)}
+                      onClick={() => navigate(`/sala/${product.sno}`)} // ✅ Navigate to detail page
                     >
                       View
                     </span>
@@ -148,7 +151,7 @@ export default function CustomerReport() {
         </div>
       )}
 
-      {/* Table */}
+      {/* 📊 Table Section */}
       <div className="table-responsive">
         <table className="table table-bordered table-striped">
           <thead className="table-dark">
@@ -176,7 +179,7 @@ export default function CustomerReport() {
                     <span
                       className="text-primary"
                       style={{ cursor: "pointer" }}
-                      onClick={() => setSelectedProduct(product)}
+                      onClick={() => navigate(`/sala/${product.sno}`)} // ✅ Navigate to detail page
                     >
                       View
                     </span>
@@ -194,64 +197,6 @@ export default function CustomerReport() {
           </tbody>
         </table>
       </div>
-
-      {/* Modal for Installments */}
-    {/* Modal for Installments */}
-{selectedProduct && (
-  <div
-    className="modal show d-block"
-    tabIndex="-1"
-    role="dialog"
-    style={{ background: "rgba(0,0,0,0.5)" }}
-  >
-    <div className="modal-dialog modal-lg" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">
-            Paid Installments - {selectedProduct.product} (#{selectedProduct.sno})
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            onClick={() => setSelectedProduct(null)}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <table className="table table-bordered">
-            <thead className="table-light">
-              <tr>
-                <th>#</th>
-                <th>Month</th>
-                <th>Payment (PKR)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedProduct.installments
-                .filter((ins) => ins.status === "Paid") // ✅ Only show Paid
-                .map((ins, i) => (
-                  <tr key={i}>
-                    <td>{i + 1}</td>
-                    <td>{ins.month}</td>
-                    <td>{ins.payment.toLocaleString()}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => setSelectedProduct(null)}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
     </div>
   );
 }
