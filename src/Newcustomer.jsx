@@ -1,12 +1,56 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { FaRotateLeft } from "react-icons/fa6"; // ✅ Reset Icon
-
+import axios from "axios"
+import { toast } from 'react-toastify';
 function NewCustomer() {
   const formRef = useRef(null);
 
   const handleReset = () => {
     if (formRef.current) {
       formRef.current.reset(); // ✅ Reset only this form
+    }
+  };
+
+  const createCustomer = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    console.log(e.target)
+
+    const form = formRef.current;
+    if (!form) return;
+
+    const formData = new FormData(form);
+    const customerData = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      cnic: formData.get("cnic"),
+      phone: formData.get("phone"),
+      address: formData.get("address"),
+    };
+
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND + "/api/customers",
+        customerData
+      );
+
+      console.log("Customer created successfully:", response.data);
+      toast.success("Customer created successfully!");
+      form.reset(); // Clear form
+    } catch (error) {
+      console.error("Error submitting form:", error);
+
+      // Handle server or validation error
+      if (error.response) {
+        // Server responded with a non-2xx status
+        toast.error(error.response.data.message || "Server error");
+      } else if (error.request) {
+        // Request was made but no response
+        toast.error("No response from server");
+      } else {
+        // Something else happened
+        toast.error("Error: " + error.message);
+      }
     }
   };
 
@@ -25,13 +69,14 @@ function NewCustomer() {
         </button>
       </div>
 
-      <form ref={formRef}>
+      <form ref={formRef} onSubmit={createCustomer}>
         {/* Row 1 - Name + Email (Email optional) */}
         <div className="row mb-3">
           <div className="col-md-6">
             <input
               type="text"
               className="form-control"
+              name="name"
               placeholder="Enter customer name"
               required
             />
@@ -39,6 +84,7 @@ function NewCustomer() {
           <div className="col-md-6">
             <input
               type="email"
+              name="email"
               className="form-control"
               placeholder="Enter email (optional)"
             />
@@ -50,6 +96,7 @@ function NewCustomer() {
           <div className="col-md-6">
             <input
               type="text"
+              name="cnic"
               className="form-control"
               placeholder="Enter CNIC"
               required
@@ -58,6 +105,7 @@ function NewCustomer() {
           <div className="col-md-6">
             <input
               type="text"
+              name="phone"
               className="form-control"
               placeholder="Enter phone number"
               required
@@ -69,6 +117,7 @@ function NewCustomer() {
         <div className="row mb-3">
           <div className="col-12">
             <textarea
+              name="address"
               className="form-control"
               placeholder="Enter address"
               style={{ height: "100px" }}

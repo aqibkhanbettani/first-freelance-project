@@ -47,9 +47,12 @@
   display: flex;
 }
 
+.main-content-margin {
+  margin-left: 220px; /* same width as sidebar */
+}
+
 /* Push main content to the right of the fixed sidebar */
 .main-content {
-  margin-left: 220px; /* same width as sidebar */
   padding: 20px;
   min-height: 100vh;
   background-color: #f8f9fa;
